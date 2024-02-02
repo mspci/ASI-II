@@ -11,6 +11,5 @@ public class ChaineRestaurant {
     @Column(name = "idChaineRestaurant")
     private Long idChaineRestaurant;
     private String libelle;
-    @Temporal(TemporalType.DATE)
     private LocalDate dateCreation;
 }

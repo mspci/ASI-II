@@ -10,7 +10,6 @@ public class Commande {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idCommande")
     private Long idCommande;
-    @Temporal(TemporalType.DATE)
     private LocalDate dateCommande;
     private Integer pourcentageRemise;
     private Float totalRemise;
