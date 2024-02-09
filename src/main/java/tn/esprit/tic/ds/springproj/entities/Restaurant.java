@@ -2,6 +2,8 @@ package tn.esprit.tic.ds.springproj.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+
 @Entity
 @Table(name = "Restaurant")
 public class Restaurant {
@@ -11,4 +13,8 @@ public class Restaurant {
     private Long idRestaurant;
     private String nom;
     private Long nbPlacesMax;
+    @ManyToOne(fetch = FetchType.EAGER)
+    ChaineRestauration chaineRestauration;
+    @OneToMany(fetch = FetchType.LAZY)
+    ArrayList<Menu> menus;
 }

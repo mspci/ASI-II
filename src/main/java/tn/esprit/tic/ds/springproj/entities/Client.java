@@ -1,6 +1,8 @@
 package tn.esprit.tic.ds.springproj.entities;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.Date;
 
 @Entity
@@ -13,6 +15,6 @@ public class Client {
     private String identifiant;
     @Temporal(TemporalType.DATE)
     private Date datePremiereVisite;
-
-    // Constructeur et accesseurs (getters) et mutateurs (setters)
+    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
+    private ArrayList<Commande> commandes;
 }

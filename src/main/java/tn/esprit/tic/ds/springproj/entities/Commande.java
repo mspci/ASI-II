@@ -1,6 +1,7 @@
 package tn.esprit.tic.ds.springproj.entities;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDate;
 
 @Entity
@@ -15,4 +16,8 @@ public class Commande {
     private Float totalRemise;
     private Float totalCommande;
     private Long note;
+    @ManyToOne(fetch = FetchType.EAGER)
+    Client client;
+    @ManyToOne(fetch = FetchType.EAGER)
+    Menu menu;
 }
