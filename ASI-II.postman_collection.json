@@ -1,0 +1,353 @@
+{
+	"info": {
+		"_postman_id": "02e9dff3-35a7-4bf7-89fa-3960ed7cc685",
+		"name": "ASI-II",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20776568"
+	},
+	"item": [
+		{
+			"name": "Menu",
+			"item": [
+				{
+					"name": "get-menus-type-prix-keyword",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8089/menu/menu/find-menus/DINER/500",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"menu",
+								"menu",
+								"find-menus",
+								"DINER",
+								"500"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find-all-menus",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8089/menu/menu/find-all-menus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"menu",
+								"menu",
+								"find-all-menus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find-menu",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8089/menu/menu/find-menu/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"menu",
+								"menu",
+								"find-menu",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add-menu",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"libelleMenu\": \"Menu E\",\r\n\"prixTotal\": 320.0,\r\n\"typeMenu\": \"DINER\",\r\n\"chefCuisinier\": [],\r\n\"commandes\": [],\r\n\"composants\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8089/menu/menu/add-menu",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"menu",
+								"menu",
+								"add-menu"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add-menus",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"libelleMenu\": \"Menu A\",\r\n    \"prixTotal\": 501.0,\r\n    \"typeMenu\": \"DINER\",\r\n    \"chefCuisinier\": [],\r\n    \"commandes\": [],\r\n    \"composants\": []\r\n  },\r\n  {\r\n    \"libelleMenu\": \"Menu B\",\r\n    \"prixTotal\": 130.0,\r\n    \"typeMenu\": \"PETITDEJEUNER\",\r\n    \"chefCuisinier\": [],\r\n    \"commandes\": [],\r\n    \"composants\": []\r\n  },\r\n  {\r\n    \"libelleMenu\": \"Menu C\",\r\n    \"prixTotal\": 502.0,\r\n    \"typeMenu\": \"DEJEUNER\",\r\n    \"chefCuisinier\": [],\r\n    \"commandes\": [],\r\n    \"composants\": []\r\n  }\r\n]\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8089/menu/menu/add-menus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"menu",
+								"menu",
+								"add-menus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove-menu",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8089/menu/menu/remove-menu/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"menu",
+								"menu",
+								"remove-menu",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-menu",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"idMenu\": 6,\r\n\"libelleMenu\": \"Menu E\",\r\n\"prixTotal\": 340.0,\r\n\"typeMenu\": \"DINER\",\r\n\"chefCuisinier\": [],\r\n\"commandes\": [],\r\n\"composants\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8089/menu/menu/update-menu",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"menu",
+								"menu",
+								"update-menu"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Client",
+			"item": [
+				{
+					"name": "retrieve-all-clients",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8089/menu/client/retrieve-all-clients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"menu",
+								"client",
+								"retrieve-all-clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "retrieve-client",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8089/menu/client/retrieve-client/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"menu",
+								"client",
+								"retrieve-client",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add-clients",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"identifiant\": \"Amira Boujelben\",\r\n        \"datePremiereVisite\": \"2024-01-12\"\r\n    },\r\n    {\r\n        \"identifiant\": \"Tarik Hadded\",\r\n        \"datePremiereVisite\": \"2023-02-22\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8089/menu/client/add-clients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"menu",
+								"client",
+								"add-clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add-client",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"identifiant\": \"Sami Mejri\",\r\n    \"datePremiereVisite\": \"2024-01-12\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8089/menu/client/add-client",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"menu",
+								"client",
+								"add-client"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove-client",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8089/menu/client/remove-client/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"menu",
+								"client",
+								"remove-client",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-client",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idClient\": \"4\",\r\n    \"identifiant\": \"Sami Mejri\",\r\n    \"datePremiereVisite\": \"2024-01-25\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8089/menu/client/update-client",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"menu",
+								"client",
+								"update-client"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
