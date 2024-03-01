@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/client")
 public class ClientController {
-    IClientService clientService;
+    private final IClientService clientService;
 
     // http://localhost:8089/menu/client/retrieve-all-clients
     @GetMapping("/retrieve-all-clients")
@@ -33,10 +33,10 @@ public class ClientController {
         return client;
     }
 
-    // http://localhost:8089/menu/client/remove-client/1
-    @DeleteMapping("/remove-client/{client-id}")
-    public void removeClient(@PathVariable("client-id") Long clientId) {
-        clientService.removeClient(clientId);
+    // http://localhost:8089/menu/client/add-clients
+    @PostMapping("/add-clients")
+    public List<Client> addClients(@RequestBody List<Client> clients) {
+        return clientService.addClients(clients);
     }
 
     // http://localhost:8089/menu/client/update-client
@@ -46,9 +46,9 @@ public class ClientController {
         return client;
     }
 
-    // http://localhost:8089/menu/client/add-clients
-    @PostMapping("/add-clients")
-    public List<Client> addClients(@RequestBody List<Client> clients) {
-        return clientService.addClients(clients);
+    // http://localhost:8089/menu/client/remove-client/1
+    @DeleteMapping("/remove-client/{client-id}")
+    public void removeClient(@PathVariable("client-id") Long clientId) {
+        clientService.removeClient(clientId);
     }
 }

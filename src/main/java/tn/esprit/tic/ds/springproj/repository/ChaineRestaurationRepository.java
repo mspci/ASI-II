@@ -2,8 +2,8 @@ package tn.esprit.tic.ds.springproj.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import tn.esprit.tic.ds.springproj.entities.Client;
+import tn.esprit.tic.ds.springproj.entities.ChaineRestauration;
 
 @Repository
-public interface ClientRepository extends JpaRepository<Client, Long> {
+public interface ChaineRestaurationRepository extends JpaRepository<ChaineRestauration, Long> {
 }

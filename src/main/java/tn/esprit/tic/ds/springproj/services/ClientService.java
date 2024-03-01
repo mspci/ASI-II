@@ -10,7 +10,12 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class ClientService implements IClientService {
-    ClientRepository clientRepository;
+    private final ClientRepository clientRepository;
+
+    @Override
+    public Client retrieveClient(Long idClient) {
+        return clientRepository.findById(idClient).orElse(null);
+    }
 
     @Override
     public List<Client> retrieveAllClients() {
@@ -23,22 +28,17 @@ public class ClientService implements IClientService {
     }
 
     @Override
+    public List<Client> addClients(List<Client> Clients) {
+        return (List<Client>) clientRepository.saveAll(Clients);
+    }
+
+    @Override
     public Client updateClient(Client e) {
         return clientRepository.save(e);
     }
 
     @Override
-    public Client retrieveClient(Long idClient) {
-        return clientRepository.findById(idClient).orElse(null);
-    }
-
-    @Override
     public void removeClient(Long idClient) {
         clientRepository.deleteById(idClient);
-    }
-
-    @Override
-    public List<Client> addClients(List<Client> Clients) {
-        return (List<Client>) clientRepository.saveAll(Clients);
     }
 }

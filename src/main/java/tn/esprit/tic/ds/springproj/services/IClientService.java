@@ -7,15 +7,15 @@ import java.util.List;
 
 @Service
 public interface IClientService {
+    Client retrieveClient(Long idClient);
+
     List<Client> retrieveAllClients();
 
     Client addClient(Client e);
 
+    List<Client> addClients(List<Client> Clients);
+
     Client updateClient(Client e);
 
-    Client retrieveClient(Long idClient);
-
     void removeClient(Long idClient);
-
-    List<Client> addClients(List<Client> Clients);
 }
