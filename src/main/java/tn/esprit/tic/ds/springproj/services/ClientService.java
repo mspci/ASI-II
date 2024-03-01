@@ -1,10 +1,14 @@
 package tn.esprit.tic.ds.springproj.services;
 
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 import tn.esprit.tic.ds.springproj.entities.Client;
 import tn.esprit.tic.ds.springproj.repository.ClientRepository;
 
 import java.util.List;
 
+@Service
+@AllArgsConstructor
 public class ClientService implements IClientService {
     ClientRepository clientRepository;
 

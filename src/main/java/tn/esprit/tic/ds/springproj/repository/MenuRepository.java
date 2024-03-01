@@ -9,13 +9,16 @@ import tn.esprit.tic.ds.springproj.entities.TypeMenu;
 import java.util.List;
 
 public interface MenuRepository {
+    // 1.4 liste des menus selon le type menu avec le prix  des composants est supérieur à un montant donné en paramètres
     List<Menu> findAllByComposantsOrderByPrixTotalGreaterThan(float PrixTotal);
 
+    // 2.1 List nom Menu Par le type Menu Ordonne Par PrixTotal
     @Query("SELECT m.libelleMenu FROM Menu m " +
             "WHERE m.typeMenu = :typeMenu " +
             "ORDER BY m.prixTotal")
     List<String> retrieveMenuLabelByMenuTypeOrderedByPrice(@Param("typeMenu") TypeMenu typeMenu);
 
+    // 2.2 list Menu Par TypeComposant (exemple : les menus contenant de la viande blanche)
     @Query("SELECT m FROM Menu m " +
             "JOIN m.composants c " +
             "JOIN c.detailComposant dc " +

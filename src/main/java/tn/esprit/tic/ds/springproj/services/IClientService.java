@@ -1,9 +1,11 @@
 package tn.esprit.tic.ds.springproj.services;
 
+import org.springframework.stereotype.Service;
 import tn.esprit.tic.ds.springproj.entities.Client;
 
 import java.util.List;
 
+@Service
 public interface IClientService {
     List<Client> retrieveAllClients();
 
