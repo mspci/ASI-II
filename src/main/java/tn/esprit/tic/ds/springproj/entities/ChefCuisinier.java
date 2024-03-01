@@ -2,7 +2,7 @@ package tn.esprit.tic.ds.springproj.entities;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "ChefCuisinier")
@@ -16,5 +16,5 @@ public class ChefCuisinier {
     @Enumerated(EnumType.STRING)
     private TypeChef typeChef;
     @ManyToMany(mappedBy = "chefCuisinier", fetch = FetchType.LAZY)
-    private ArrayList<Menu> menu;
+    private List<Menu> menu;
 }

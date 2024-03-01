@@ -6,5 +6,4 @@ import tn.esprit.tic.ds.springproj.entities.Client;
 
 @Repository
 public interface ClientRepository extends CrudRepository<Client, Long> {
-
 }

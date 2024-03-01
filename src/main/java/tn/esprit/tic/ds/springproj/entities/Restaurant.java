@@ -2,7 +2,7 @@ package tn.esprit.tic.ds.springproj.entities;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Restaurant")
@@ -16,5 +16,5 @@ public class Restaurant {
     @ManyToOne(fetch = FetchType.EAGER)
     ChaineRestauration chaineRestauration;
     @OneToMany(fetch = FetchType.LAZY)
-    ArrayList<Menu> menus;
+    List<Menu> menus;
 }

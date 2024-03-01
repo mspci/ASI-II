@@ -45,4 +45,10 @@ public class ClientController {
         Client client = clientService.updateClient(c);
         return client;
     }
+
+    // http://localhost:8089/menu/client/add-clients
+    @PostMapping("/add-clients")
+    public List<Client> addClients(@RequestBody List<Client> clients) {
+        return clientService.addClients(clients);
+    }
 }

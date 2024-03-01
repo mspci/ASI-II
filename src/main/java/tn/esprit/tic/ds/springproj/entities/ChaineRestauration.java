@@ -3,7 +3,7 @@ package tn.esprit.tic.ds.springproj.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "ChaineRestauration")
@@ -15,5 +15,5 @@ public class ChaineRestauration {
     private String libelle;
     private LocalDate dateCreation;
     @OneToMany(mappedBy = "chaineRestauration")
-    ArrayList<Restaurant> restaurants;
+    List<Restaurant> restaurants;
 }

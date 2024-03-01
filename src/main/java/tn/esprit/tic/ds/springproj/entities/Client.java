@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -24,5 +24,5 @@ public class Client {
     @Temporal(TemporalType.DATE)
     private Date datePremiereVisite;
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
-    private ArrayList<Commande> commandes;
+    private List<Commande> commandes;
 }

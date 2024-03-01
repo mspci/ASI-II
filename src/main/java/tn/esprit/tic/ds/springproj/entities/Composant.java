@@ -10,7 +10,7 @@ public class Composant {
     @Column(name = "IdComposant")
     private Long idComposant;
     private String nomComposant;
-    private Float pix;
+    private Float prix;
     @ManyToOne(fetch = FetchType.EAGER)
     private Menu menu;
     @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
