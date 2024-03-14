@@ -1,5 +1,6 @@
 package tn.esprit.tic.ds.springproj.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +24,7 @@ public class Client {
     private String identifiant;
     @Temporal(TemporalType.DATE)
     private Date datePremiereVisite;
-    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
+    @JsonIgnore
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Commande> commandes;
 }

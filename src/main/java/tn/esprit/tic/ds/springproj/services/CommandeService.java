@@ -57,4 +57,9 @@ public class CommandeService implements ICommandeService {
     public void removeCommande(Long idCommande) {
         commandeRepository.deleteById(idCommande);
     }
+
+    @Override
+    public List<Commande> listeCommandesParClient(String identifiant) {
+        return commandeRepository.findByClientIdentifiant(identifiant);
+    }
 }

@@ -76,4 +76,20 @@ public class MenuController {
     public void removeMenu(@PathVariable("idMenu") Long idMenu) {
         menuService.removeMenu(idMenu);
     }
+
+    // Affectations
+
+    // http://localhost:8089/menu/menu/affecter-chef-cuisinier-a-menu/1/2
+    @GetMapping("/affecter-chef-cuisinier-a-menu/{idChefCuisinier}/{idMenu}")
+    public void affecterChefCuisinierAMenu(
+            @PathVariable("idChefCuisinier") Long idChefCuisinier,
+            @PathVariable("idMenu") Long idMenu) {
+        menuService.affecterChefCuisinierAMenu(idChefCuisinier, idMenu);
+    }
+
+    // http://localhost:8089/menu/menu/desaffecter-chef-cuisinier-du-menu/2
+    @GetMapping("/desaffecter-chef-cuisinier-du-menu/{idMenu}")
+    public void desaffecterChefCuisinierDuMenu(@PathVariable("idMenu") Long idMenu) {
+        menuService.desaffecterChefCuisinierDuMenu(idMenu);
+    }
 }

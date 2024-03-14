@@ -1,8 +1,8 @@
 package tn.esprit.tic.ds.springproj.services;
 
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
+import tn.esprit.tic.ds.springproj.entities.ChefCuisinier;
 import tn.esprit.tic.ds.springproj.entities.Menu;
 import tn.esprit.tic.ds.springproj.entities.TypeComposant;
 import tn.esprit.tic.ds.springproj.entities.TypeMenu;
@@ -28,4 +28,8 @@ public interface IMenuService {
     Menu updateMenu(Menu e);
 
     void removeMenu(Long idMenu);
+
+    ChefCuisinier affecterChefCuisinierAMenu(Long idChefCuisinier, Long idMenu);
+
+    ChefCuisinier desaffecterChefCuisinierDuMenu(Long idMenu);
 }

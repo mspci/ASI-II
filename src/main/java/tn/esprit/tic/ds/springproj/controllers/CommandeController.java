@@ -89,4 +89,11 @@ public class CommandeController {
     public void removeCommande(@PathVariable("idCommande") Long idCommande) {
         commandeService.removeCommande(idCommande);
     }
+
+    // http://localhost:8089/menu/commande/liste-commandes-par-client/2
+    @GetMapping("/liste-commandes-par-client/{identifiant}")
+    public List<Commande> listeCommandesParClient(@PathVariable("identifiant") String identifiant) {
+        List<Commande> commandes = commandeService.listeCommandesParClient(identifiant);
+        return commandes;
+    }
 }

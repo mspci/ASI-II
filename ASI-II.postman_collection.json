@@ -219,7 +219,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8089/menu/client/retrieve-client/1",
+							"raw": "http://localhost:8089/menu/client/retrieve-client/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -229,7 +229,7 @@
 								"menu",
 								"client",
 								"retrieve-client",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -342,6 +342,131 @@
 								"menu",
 								"client",
 								"update-client"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Affectations",
+			"item": [
+				{
+					"name": "affecterRestaurantAChaineRestauration",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8089/menu/restaurant/affecter-restaurant-a-chaine-restauration/Restau2/libcr1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"menu",
+								"restaurant",
+								"affecter-restaurant-a-chaine-restauration",
+								"Restau2",
+								"libcr1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ajout-restaurant-et-menu-associes",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idRestaurant\": 2.0,\r\n    \"nom\": \"Restau3\",\r\n    \"nbPlacesMax\": 34,\r\n    \"chaineRestauration\": \"\",\r\n    \"menus\":[\r\n    {\r\n        \"idMenu\": 1,\r\n        \"libelleMenu\": \"libMenu1\"\r\n    }\r\n    ] \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8089/menu/restaurant/ajout-restaurant-et-menu-associes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"menu",
+								"restaurant",
+								"ajout-restaurant-et-menu-associes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "affecter-chef-cuisinier-a-menu",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8089/menu/menu/affecter-chef-cuisinier-a-menu/1/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"menu",
+								"menu",
+								"affecter-chef-cuisinier-a-menu",
+								"1",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "desaffecter-chef-cuisinier-du-menu",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8089/menu/menu/desaffecter-chef-cuisinier-du-menu/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"menu",
+								"menu",
+								"desaffecter-chef-cuisinier-du-menu",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "liste-commandes-par-client",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8089/menu/commande/liste-commandes-par-client/Sarrah",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"menu",
+								"commande",
+								"liste-commandes-par-client",
+								"Sarrah"
 							]
 						}
 					},

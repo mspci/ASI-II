@@ -23,6 +23,6 @@ public class ChefCuisinier {
     private String prenom;
     @Enumerated(EnumType.STRING)
     private TypeChef typeChef;
-    @ManyToMany(mappedBy = "chefCuisinier", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "chefCuisinier")
     private List<Menu> menu;
 }

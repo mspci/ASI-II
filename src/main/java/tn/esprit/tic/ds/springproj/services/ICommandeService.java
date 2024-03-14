@@ -25,4 +25,6 @@ public interface ICommandeService {
     Commande updateCommande(Commande commande);
 
     void removeCommande(Long idCommande);
+
+    List<Commande> listeCommandesParClient(String identifiant);
 }
