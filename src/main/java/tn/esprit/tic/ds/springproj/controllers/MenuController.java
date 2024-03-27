@@ -1,95 +1,252 @@
 package tn.esprit.tic.ds.springproj.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.tic.ds.springproj.entities.Composant;
 import tn.esprit.tic.ds.springproj.entities.Menu;
 import tn.esprit.tic.ds.springproj.entities.TypeComposant;
 import tn.esprit.tic.ds.springproj.entities.TypeMenu;
 import tn.esprit.tic.ds.springproj.services.IMenuService;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("/menu")
+@Tag(name = "Menu Management Module",
+        description = "Operations pertaining to menu management")
 public class MenuController {
     private final IMenuService menuService;
 
     //    http://localhost:8089/menu/menu/find-menu-labels/DINER
+    @Operation(summary = "Find menu labels by type ordered by price",
+            description = "Find menu labels by type ordered by price")
     @GetMapping("/find-menu-labels/{typeMenu}")
-    public List<String> findMenuLabelsByTypeOrderedByPrice(@PathVariable("typeMenu") TypeMenu typeMenu) {
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved menu labels"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Menu labels not found")
+    })
+    public List<String> findMenuLabelsByTypeOrderedByPrice(
+            @Parameter(description = "Type of menu", required = true)
+            @PathVariable("typeMenu") TypeMenu typeMenu) {
         List<String> menuLabels = menuService.getMenuLabelByMenuTypeOrderedByPrice(typeMenu);
         return menuLabels;
     }
 
     //    http://localhost:8089/menu/menu/find-menus-by-type-composant/VIANDE_BLANCHE
+    @Operation(summary = "Find menus by type composant",
+            description = "Find menus by type composant")
     @GetMapping("/find-menus-by-type-composant/{typeComposant}")
-    public List<Menu> findMenusByTypeComposant(@PathVariable("typeComposant") TypeComposant typeComposant) {
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved menus by type of component"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Menus not found")
+    })
+    public List<Menu> findMenusByTypeComposant(
+            @Parameter(description = "Type of composant", required = true)
+            @PathVariable("typeComposant") TypeComposant typeComposant) {
         List<Menu> menus = menuService.getMenuByTypeComposant(typeComposant);
         return menus;
     }
 
     //    http://localhost:8089/menu/menu/find-menus/DINER/500
+    @Operation(summary = "Find menus by type and price",
+            description = "Find menus by type and price greater than a given value")
     @GetMapping("/find-menus/{typeMenu}/{prixTotal}")
-    public List<Menu> findMenusByTypeAndPriceGreaterThan(@PathVariable("typeMenu") TypeMenu typeMenu, @PathVariable("prixTotal") Float prixTotal) {
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved menus by type and price"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Menus not found")
+    })
+    public List<Menu> findMenusByTypeAndPriceGreaterThan(
+            @Parameter(description = "Type of menu", required = true)
+            @PathVariable("typeMenu") TypeMenu typeMenu,
+            @Parameter(description = "Total price", required = true)
+            @PathVariable("prixTotal") Float prixTotal) {
         List<Menu> menus = menuService.retrieveMenusByTypeAndPrice(typeMenu, prixTotal);
         return menus;
     }
 
     //   http://localhost:8089/menu/menu/find-all-menus
+    @Operation(summary = "Find all menus")
     @GetMapping("/find-all-menus")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved all menus"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Menus not found")
+    })
     public List<Menu> findAllMenus() {
         List<Menu> menus = menuService.retrieveAllMenus();
         return menus;
     }
 
     //  http://localhost:8089/menu/menu/find-menu/1
+    @Operation(summary = "Find a menu by ID")
     @GetMapping("/find-menu/{idMenu}")
-    public Menu findMenu(@PathVariable("idMenu") Long idMenu) {
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved the menu"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Menu not found")
+    })
+    public Menu findMenu(
+            @Parameter(description = "ID of the menu", required = true)
+            @PathVariable("idMenu") Long idMenu) {
         Menu menu = menuService.retrieveMenu(idMenu);
         return menu;
     }
 
     // http://localhost:8089/menu/menu/add-menu
+    @Operation(summary = "Add a menu")
     @PostMapping("/add-menu")
-    public Menu addMenu(@RequestBody Menu m) {
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Menu successfully added"),
+            @ApiResponse(responseCode = "400", description = "Bad request")
+    })
+    public Menu addMenu(
+            @Parameter(description = "Menu object to add", required = true)
+            @RequestBody Menu m) {
         Menu menu = menuService.addMenu(m);
         return menu;
     }
 
     // http://localhost:8089/menu/menu/add-menus
+    @Operation(summary = "Add multiple menus")
     @PostMapping("/add-menus")
-    public List<Menu> addMenus(@RequestBody List<Menu> menus) {
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Menus successfully added"),
+            @ApiResponse(responseCode = "400", description = "Bad request")
+    })
+    public List<Menu> addMenus(
+            @Parameter(description = "List of menu objects to add", required = true)
+            @RequestBody List<Menu> menus) {
         List<Menu> listMenus = menuService.addMenus(menus);
         return listMenus;
     }
 
     // http://localhost:8089/menu/menu/update-menu
+    @Operation(summary = "Update a menu")
     @PutMapping("/update-menu")
-    public Menu updateMenu(@RequestBody Menu m) {
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Menu successfully updated"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Menu not found")
+    })
+    public Menu updateMenu(
+            @Parameter(description = "Menu object to update", required = true)
+            @RequestBody Menu m) {
         Menu menu = menuService.updateMenu(m);
         return menu;
     }
 
     // http://localhost:8089/menu/menu/remove-menu/1
+    @Operation(summary = "Remove a menu by ID")
     @DeleteMapping("/remove-menu/{idMenu}")
-    public void removeMenu(@PathVariable("idMenu") Long idMenu) {
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Menu successfully removed"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Menu not found")
+    })
+    public void removeMenu(
+            @Parameter(description = "ID of the menu to remove", required = true)
+            @PathVariable("idMenu") Long idMenu) {
         menuService.removeMenu(idMenu);
     }
 
     // Affectations
 
-    // http://localhost:8089/menu/menu/affecter-chef-cuisinier-a-menu/1/2
-    @GetMapping("/affecter-chef-cuisinier-a-menu/{idChefCuisinier}/{idMenu}")
+    // http://localhost:8089/menu/menu/affecter-chef-cuisinier-a-menu/2/1
+    @Operation(summary = "Assign a chef cuisinier to a menu")
+    @GetMapping("/affecter-chef-cuisinier-a-menu/{idMenu}/{idChefCuisinier}/")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Chef cuisinier successfully assigned to menu"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Menu or chef not found")
+    })
     public void affecterChefCuisinierAMenu(
+            @Parameter(description = "ID of the chef cuisinier", required = true)
             @PathVariable("idChefCuisinier") Long idChefCuisinier,
+            @Parameter(description = "ID of the menu", required = true)
             @PathVariable("idMenu") Long idMenu) {
         menuService.affecterChefCuisinierAMenu(idChefCuisinier, idMenu);
     }
 
-    // http://localhost:8089/menu/menu/desaffecter-chef-cuisinier-du-menu/2
-    @GetMapping("/desaffecter-chef-cuisinier-du-menu/{idMenu}")
-    public void desaffecterChefCuisinierDuMenu(@PathVariable("idMenu") Long idMenu) {
-        menuService.desaffecterChefCuisinierDuMenu(idMenu);
+    // http://localhost:8089/menu/menu/desaffecter-chef-cuisinier-du-menu/2/1
+    @Operation(summary = "Remove assignment of a chef cuisinier from a menu")
+    @GetMapping("/desaffecter-chef-cuisinier-du-menu/{idMenu}/{idChef}")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Chef cuisinier successfully removed from menu"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Menu or chef not found")
+    })
+    public void desaffecterChefCuisinierDuMenu(
+            @Parameter(description = "ID of the menu", required = true)
+            @PathVariable("idMenu") Long idMenu,
+            @Parameter(description = "ID of the chef cuisinier", required = true)
+            @PathVariable("idChef") Long idChef) {
+        menuService.desaffecterChefCuisinierDuMenu(idMenu, idChef);
+    }
+
+    // 9.1 Afficher les noms des menus ordonnés par prix total
+    // http://localhost:8089/menu/menu/find-menu-labels-by-type-menu-ordered-by-price/DINER
+    @Operation(summary = "Find menu labels by type ordered by price",
+            description = "Find menu labels by type ordered by price")
+    @GetMapping("/find-menu-labels-by-type-menu-ordered-by-price/{typeMenu}")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved menu labels"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Menu labels not found")
+    })
+    public List<String> findMenuLabelsByTypeMenuOrderedByPrice(
+            @Parameter(description = "Type of menu", required = true)
+            @PathVariable("typeMenu") TypeMenu typeMenu) {
+        List<String> menuLabels = menuService.nomMenuparTypeMenuOrdonneParTprixTotal(typeMenu);
+        return menuLabels;
+    }
+
+    // 9.2 Afficher les menus selon un typeMenu donné
+    // dont le prix des composants est supérieur à un montant donné en paramètres
+    // http://localhost:8089/menu/menu/find-menus-by-type-menu-and-price/DINER/500
+    @Operation(summary = "Find menus by type and price",
+            description = "Find menus by type and price greater than a given value")
+    @GetMapping("/find-menus-by-type-menu-and-price/{typeMenu}/{prixTotal}")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved menus by type and price"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Menus not found")
+    })
+    public List<Menu> findMenusByTypeMenuAndPriceGreaterThan(
+            @Parameter(description = "Type of menu", required = true)
+            @PathVariable("typeMenu") TypeMenu typeMenu,
+            @Parameter(description = "Total price", required = true)
+            @PathVariable("prixTotal") Float prixTotal) {
+        List<Menu> menus = menuService.listeMenuSelonTypeMenuEtprixComposantsSuperieurAUnMontant(typeMenu, prixTotal);
+        return menus;
+    }
+
+    // 9.3 Ajouter des composants et leur affectation au menu envoyé en paramètres
+    // Le prix du menu sera mis à jour suite à l’affectation : prix menu = total prix composants
+    // Le prix total du menu ne doit pas dépasser 20 dinars
+    // http://localhost:8089/menu/menu/add-composants-et-mise-a-jour-prix-menu
+    @Operation(summary = "Add components and update menu price")
+    @GetMapping("/add-composants-et-mise-a-jour-prix-menu")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Components successfully added and menu price updated"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Menu not found")
+    })
+    public Menu addComposantsEtMiseAjourPrixMenu(
+            @Parameter(description = "Set of components", required = true)
+            @RequestBody Set<Composant> composants,
+            @Parameter(description = "ID of the menu", required = true)
+            @PathVariable("idMenu") Long idMenu) {
+        Menu menu = menuService.ajoutComposantsEtMiseAjourPrixMenu(composants, idMenu);
+        return menu;
     }
 }

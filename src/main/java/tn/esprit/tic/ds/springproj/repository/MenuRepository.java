@@ -2,10 +2,8 @@ package tn.esprit.tic.ds.springproj.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import tn.esprit.tic.ds.springproj.entities.Client;
 import tn.esprit.tic.ds.springproj.entities.Menu;
 import tn.esprit.tic.ds.springproj.entities.TypeComposant;
 import tn.esprit.tic.ds.springproj.entities.TypeMenu;
@@ -29,4 +27,22 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
             "JOIN c.detailComposant dc " +
             "WHERE dc.typeComposant = :typeComposant")
     List<Menu> retrieveMenuByTypeComposant(@Param("typeComposant") TypeComposant typeComposant);
+
+    // 9.1 Afficher les noms des menus ordonnés par prix total
+    @Query("SELECT m.libelleMenu FROM Menu m " +
+            "Where m.typeMenu = :typeMenu " +
+            "ORDER BY m.prixTotal")
+    List<String> retrieveMenuLabelByTypeMenuOrderedByPrice(@Param("typeMenu") TypeMenu typeMenu);
+
+    // 9.2 Afficher les menus selon un typeMenu donné
+    // dont le prix des composants est supérieur à un montant donné en paramètres
+    List<Menu> findByTypeMenuAndComposantsPrixGreaterThan(TypeMenu typeMenu, Float prixTotal);
+
+//    @Query("SELECT m FROM Menu m " +
+//            "JOIN m.composants c " +
+//            "WHERE m.typeMenu = :typeMenu " +
+//            "AND SUM(c.prix) > :prixTotal")
+//    List<Menu> retrieveMenuByTypeMenuAndPrixTotalGreaterThan(@Param("typeMenu") TypeMenu typeMenu, @Param("prixTotal") Float prixTotal);
+
+
 }

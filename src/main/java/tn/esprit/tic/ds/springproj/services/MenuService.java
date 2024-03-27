@@ -1,18 +1,18 @@
 package tn.esprit.tic.ds.springproj.services;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import tn.esprit.tic.ds.springproj.entities.ChefCuisinier;
-import tn.esprit.tic.ds.springproj.entities.Menu;
-import tn.esprit.tic.ds.springproj.entities.TypeComposant;
-import tn.esprit.tic.ds.springproj.entities.TypeMenu;
+import tn.esprit.tic.ds.springproj.entities.*;
 import tn.esprit.tic.ds.springproj.repository.ChefCuisinierRepository;
 import tn.esprit.tic.ds.springproj.repository.MenuRepository;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class MenuService implements IMenuService {
     private final MenuRepository menuRepository;
     private final ChefCuisinierRepository chefCuisinierRepository;
@@ -77,7 +77,7 @@ public class MenuService implements IMenuService {
     }
 
     @Override
-    public ChefCuisinier desaffecterChefCuisinierDuMenu(Long idMenu) {
+    public ChefCuisinier desaffecterChefCuisinierDuMenu(Long idMenu, Long idChef) {
         Menu menu = menuRepository.findById(idMenu).orElse(null);
         if (menu == null
                 || menu.getChefCuisinier() == null
@@ -85,11 +85,45 @@ public class MenuService implements IMenuService {
             return null;
         }
 
-        ChefCuisinier chefCuisinier = menu.getChefCuisinier().get(0);
+        ChefCuisinier chefCuisinier = chefCuisinierRepository.findById(idChef).orElse(null);
+        if (chefCuisinier == null) {
+            return null;
+        }
 
         menu.getChefCuisinier().remove(chefCuisinier);
         menuRepository.save(menu);
 
         return chefCuisinier;
+    }
+
+    @Override
+    public List<String> nomMenuparTypeMenuOrdonneParTprixTotal(TypeMenu typeMenu) {
+        return menuRepository.retrieveMenuLabelByTypeMenuOrderedByPrice(typeMenu);
+    }
+
+    @Override
+    public List<Menu> listeMenuSelonTypeMenuEtprixComposantsSuperieurAUnMontant(TypeMenu typeMenu, Float prixTotal) {
+        return menuRepository.findAllByTypeMenuAndPrixTotalGreaterThan(typeMenu, prixTotal);
+    }
+
+    @Override
+    public Menu ajoutComposantsEtMiseAjourPrixMenu(Set<Composant> composants, Long idMenu) {
+        Menu menu = menuRepository.findById(idMenu).orElse(null);
+        if (menu == null) {
+            return null;
+        }
+
+        menu.getComposants().addAll(composants);
+
+        menu.setPrixTotal(menu.getComposants().stream()
+                .map(Composant::getPrix)
+                .reduce(0f, Float::sum));
+
+        if (menu.getPrixTotal() > 20) {
+            log.error("Le prix total du menu ne doit pas dépasser 20 dinars");
+            return null;
+        }
+
+        return menuRepository.save(menu);
     }
 }

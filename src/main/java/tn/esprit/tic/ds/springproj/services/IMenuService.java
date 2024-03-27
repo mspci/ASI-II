@@ -2,12 +2,10 @@ package tn.esprit.tic.ds.springproj.services;
 
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
-import tn.esprit.tic.ds.springproj.entities.ChefCuisinier;
-import tn.esprit.tic.ds.springproj.entities.Menu;
-import tn.esprit.tic.ds.springproj.entities.TypeComposant;
-import tn.esprit.tic.ds.springproj.entities.TypeMenu;
+import tn.esprit.tic.ds.springproj.entities.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public interface IMenuService {
@@ -31,5 +29,11 @@ public interface IMenuService {
 
     ChefCuisinier affecterChefCuisinierAMenu(Long idChefCuisinier, Long idMenu);
 
-    ChefCuisinier desaffecterChefCuisinierDuMenu(Long idMenu);
+    ChefCuisinier desaffecterChefCuisinierDuMenu(Long idMenu, Long idChef);
+
+    List<String> nomMenuparTypeMenuOrdonneParTprixTotal(TypeMenu typeMenu);
+
+    List<Menu> listeMenuSelonTypeMenuEtprixComposantsSuperieurAUnMontant(TypeMenu typeMenu, Float prixTotal);
+
+    Menu ajoutComposantsEtMiseAjourPrixMenu(Set<Composant> composants, Long idMenu);
 }
