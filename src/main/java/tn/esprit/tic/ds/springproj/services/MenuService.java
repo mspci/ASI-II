@@ -8,7 +8,6 @@ import tn.esprit.tic.ds.springproj.repository.ChefCuisinierRepository;
 import tn.esprit.tic.ds.springproj.repository.MenuRepository;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -104,26 +103,5 @@ public class MenuService implements IMenuService {
     @Override
     public List<Menu> listeMenuSelonTypeMenuEtprixComposantsSuperieurAUnMontant(TypeMenu typeMenu, Float prixTotal) {
         return menuRepository.findAllByTypeMenuAndPrixTotalGreaterThan(typeMenu, prixTotal);
-    }
-
-    @Override
-    public Menu ajoutComposantsEtMiseAjourPrixMenu(Set<Composant> composants, Long idMenu) {
-        Menu menu = menuRepository.findById(idMenu).orElse(null);
-        if (menu == null) {
-            return null;
-        }
-
-        menu.getComposants().addAll(composants);
-
-        menu.setPrixTotal(menu.getComposants().stream()
-                .map(Composant::getPrix)
-                .reduce(0f, Float::sum));
-
-        if (menu.getPrixTotal() > 20) {
-            log.error("Le prix total du menu ne doit pas dépasser 20 dinars");
-            return null;
-        }
-
-        return menuRepository.save(menu);
     }
 }

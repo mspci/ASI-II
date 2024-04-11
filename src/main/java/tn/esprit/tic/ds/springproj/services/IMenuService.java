@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import tn.esprit.tic.ds.springproj.entities.*;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public interface IMenuService {
@@ -34,6 +33,4 @@ public interface IMenuService {
     List<String> nomMenuparTypeMenuOrdonneParTprixTotal(TypeMenu typeMenu);
 
     List<Menu> listeMenuSelonTypeMenuEtprixComposantsSuperieurAUnMontant(TypeMenu typeMenu, Float prixTotal);
-
-    Menu ajoutComposantsEtMiseAjourPrixMenu(Set<Composant> composants, Long idMenu);
 }

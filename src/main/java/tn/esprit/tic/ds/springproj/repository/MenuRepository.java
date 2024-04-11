@@ -9,6 +9,7 @@ import tn.esprit.tic.ds.springproj.entities.TypeComposant;
 import tn.esprit.tic.ds.springproj.entities.TypeMenu;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface MenuRepository extends JpaRepository<Menu, Long> {
@@ -44,5 +45,5 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
 //            "AND SUM(c.prix) > :prixTotal")
 //    List<Menu> retrieveMenuByTypeMenuAndPrixTotalGreaterThan(@Param("typeMenu") TypeMenu typeMenu, @Param("prixTotal") Float prixTotal);
 
-
+    Optional<Menu> findByLibelleMenu(String libelleMenu);
 }

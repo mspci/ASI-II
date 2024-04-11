@@ -7,14 +7,12 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.tic.ds.springproj.entities.Composant;
 import tn.esprit.tic.ds.springproj.entities.Menu;
 import tn.esprit.tic.ds.springproj.entities.TypeComposant;
 import tn.esprit.tic.ds.springproj.entities.TypeMenu;
 import tn.esprit.tic.ds.springproj.services.IMenuService;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @AllArgsConstructor
@@ -36,8 +34,7 @@ public class MenuController {
     public List<String> findMenuLabelsByTypeOrderedByPrice(
             @Parameter(description = "Type of menu", required = true)
             @PathVariable("typeMenu") TypeMenu typeMenu) {
-        List<String> menuLabels = menuService.getMenuLabelByMenuTypeOrderedByPrice(typeMenu);
-        return menuLabels;
+        return menuService.getMenuLabelByMenuTypeOrderedByPrice(typeMenu);
     }
 
     //    http://localhost:8089/menu/menu/find-menus-by-type-composant/VIANDE_BLANCHE
@@ -52,8 +49,7 @@ public class MenuController {
     public List<Menu> findMenusByTypeComposant(
             @Parameter(description = "Type of composant", required = true)
             @PathVariable("typeComposant") TypeComposant typeComposant) {
-        List<Menu> menus = menuService.getMenuByTypeComposant(typeComposant);
-        return menus;
+        return menuService.getMenuByTypeComposant(typeComposant);
     }
 
     //    http://localhost:8089/menu/menu/find-menus/DINER/500
@@ -70,8 +66,7 @@ public class MenuController {
             @PathVariable("typeMenu") TypeMenu typeMenu,
             @Parameter(description = "Total price", required = true)
             @PathVariable("prixTotal") Float prixTotal) {
-        List<Menu> menus = menuService.retrieveMenusByTypeAndPrice(typeMenu, prixTotal);
-        return menus;
+        return menuService.retrieveMenusByTypeAndPrice(typeMenu, prixTotal);
     }
 
     //   http://localhost:8089/menu/menu/find-all-menus
@@ -83,8 +78,7 @@ public class MenuController {
             @ApiResponse(responseCode = "404", description = "Menus not found")
     })
     public List<Menu> findAllMenus() {
-        List<Menu> menus = menuService.retrieveAllMenus();
-        return menus;
+        return menuService.retrieveAllMenus();
     }
 
     //  http://localhost:8089/menu/menu/find-menu/1
@@ -98,8 +92,7 @@ public class MenuController {
     public Menu findMenu(
             @Parameter(description = "ID of the menu", required = true)
             @PathVariable("idMenu") Long idMenu) {
-        Menu menu = menuService.retrieveMenu(idMenu);
-        return menu;
+        return menuService.retrieveMenu(idMenu);
     }
 
     // http://localhost:8089/menu/menu/add-menu
@@ -112,8 +105,7 @@ public class MenuController {
     public Menu addMenu(
             @Parameter(description = "Menu object to add", required = true)
             @RequestBody Menu m) {
-        Menu menu = menuService.addMenu(m);
-        return menu;
+        return menuService.addMenu(m);
     }
 
     // http://localhost:8089/menu/menu/add-menus
@@ -126,23 +118,21 @@ public class MenuController {
     public List<Menu> addMenus(
             @Parameter(description = "List of menu objects to add", required = true)
             @RequestBody List<Menu> menus) {
-        List<Menu> listMenus = menuService.addMenus(menus);
-        return listMenus;
+        return menuService.addMenus(menus);
     }
 
     // http://localhost:8089/menu/menu/update-menu
     @Operation(summary = "Update a menu")
     @PutMapping("/update-menu")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Menu successfully updated"),
+//            @ApiResponse(responseCode = "200", description = "Menu successfully updated"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "404", description = "Menu not found")
     })
     public Menu updateMenu(
             @Parameter(description = "Menu object to update", required = true)
             @RequestBody Menu m) {
-        Menu menu = menuService.updateMenu(m);
-        return menu;
+        return menuService.updateMenu(m);
     }
 
     // http://localhost:8089/menu/menu/remove-menu/1
@@ -206,8 +196,7 @@ public class MenuController {
     public List<String> findMenuLabelsByTypeMenuOrderedByPrice(
             @Parameter(description = "Type of menu", required = true)
             @PathVariable("typeMenu") TypeMenu typeMenu) {
-        List<String> menuLabels = menuService.nomMenuparTypeMenuOrdonneParTprixTotal(typeMenu);
-        return menuLabels;
+        return menuService.nomMenuparTypeMenuOrdonneParTprixTotal(typeMenu);
     }
 
     // 9.2 Afficher les menus selon un typeMenu donné
@@ -226,27 +215,6 @@ public class MenuController {
             @PathVariable("typeMenu") TypeMenu typeMenu,
             @Parameter(description = "Total price", required = true)
             @PathVariable("prixTotal") Float prixTotal) {
-        List<Menu> menus = menuService.listeMenuSelonTypeMenuEtprixComposantsSuperieurAUnMontant(typeMenu, prixTotal);
-        return menus;
-    }
-
-    // 9.3 Ajouter des composants et leur affectation au menu envoyé en paramètres
-    // Le prix du menu sera mis à jour suite à l’affectation : prix menu = total prix composants
-    // Le prix total du menu ne doit pas dépasser 20 dinars
-    // http://localhost:8089/menu/menu/add-composants-et-mise-a-jour-prix-menu
-    @Operation(summary = "Add components and update menu price")
-    @GetMapping("/add-composants-et-mise-a-jour-prix-menu")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Components successfully added and menu price updated"),
-            @ApiResponse(responseCode = "400", description = "Bad request"),
-            @ApiResponse(responseCode = "404", description = "Menu not found")
-    })
-    public Menu addComposantsEtMiseAjourPrixMenu(
-            @Parameter(description = "Set of components", required = true)
-            @RequestBody Set<Composant> composants,
-            @Parameter(description = "ID of the menu", required = true)
-            @PathVariable("idMenu") Long idMenu) {
-        Menu menu = menuService.ajoutComposantsEtMiseAjourPrixMenu(composants, idMenu);
-        return menu;
+        return menuService.listeMenuSelonTypeMenuEtprixComposantsSuperieurAUnMontant(typeMenu, prixTotal);
     }
 }
