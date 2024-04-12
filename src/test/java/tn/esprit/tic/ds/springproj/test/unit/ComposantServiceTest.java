@@ -1,4 +1,4 @@
-package tn.esprit.tic.ds.springproj;
+package tn.esprit.tic.ds.springproj.test.unit;
 
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.MethodOrderer;
@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import tn.esprit.tic.ds.springproj.entities.Composant;
 import tn.esprit.tic.ds.springproj.entities.Menu;
+import tn.esprit.tic.ds.springproj.repository.ComposantRepository;
 import tn.esprit.tic.ds.springproj.repository.MenuRepository;
 import tn.esprit.tic.ds.springproj.services.ComposantService;
 
@@ -31,6 +32,9 @@ public class ComposantServiceTest {
 
     @Mock
     private MenuRepository menuRepository;
+
+    @Mock
+    private ComposantRepository composantRepository;
 
     @InjectMocks
     private ComposantService composantService;
