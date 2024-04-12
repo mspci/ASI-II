@@ -82,7 +82,7 @@ public class CommandeService implements ICommandeService {
         commande.setClient(client);
         commande.setMenu(menu);
 
-        Float prixTotal = menu.getPrixTotal();
+        Float prixTotal = menu.getPrixTotal() == null ? 0f : menu.getPrixTotal();
         Float totalRemise = prixTotal * commande.getPourcentageRemise() / 100;
         Float totalCommande = prixTotal - totalRemise;
 
