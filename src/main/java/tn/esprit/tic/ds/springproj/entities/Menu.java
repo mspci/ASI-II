@@ -16,6 +16,10 @@ import java.util.List;
 @Table(name = "Menu")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Menu {
+
+    // add a test attribute
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idMenu")

@@ -12,6 +12,7 @@ import tn.esprit.tic.ds.springproj.repository.CommandeRepository;
 import tn.esprit.tic.ds.springproj.repository.MenuRepository;
 
 import java.time.LocalDate;
+import java.time.Year;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -103,8 +104,10 @@ public class CommandeService implements ICommandeService {
     @Override
     @Scheduled(fixedDelay = 10000)
     public void findCurrentYearCommandesOrderByNote() {
+        int currentYear = LocalDate.now().getYear();
+
         commandeRepository.findAll().stream()
-                .filter(commande -> commande.getDateCommande().getYear() == LocalDate.now().getYear())
+                .filter(commande -> commande.getDateCommande().getYear() == currentYear)
                 .sorted(Comparator.comparing(Commande::getNote).reversed())
                 .forEach((commande) ->
                         log.info("La commande faite le {} d'un montant global de {} a une note de {}",
@@ -113,6 +116,23 @@ public class CommandeService implements ICommandeService {
                                 commande.getNote())
                 );
     }
+
+//    // getYear() deprecated?
+//    @Override
+//    @Scheduled(fixedDelay = 10000)
+//    public void findCurrentYearCommandesOrderByNote() {
+//        int currentYear = Year.now().getValue();
+//
+//        commandeRepository.findAll().stream()
+//                .filter(commande -> Year.from(commande.getDateCommande()).equals(Year.of(currentYear)))
+//                .sorted(Comparator.comparing(Commande::getNote).reversed())
+//                .forEach((commande) ->
+//                        log.info("La commande faite le {} d'un montant global de {} a une note de {}",
+//                                commande.getDateCommande(),
+//                                commande.getTotalCommande(),
+//                                commande.getNote())
+//                );
+//    }
 
 //    @Override
 //    @Scheduled(fixedDelay = 10000)
