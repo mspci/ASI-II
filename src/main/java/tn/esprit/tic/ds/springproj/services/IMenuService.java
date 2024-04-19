@@ -33,4 +33,6 @@ public interface IMenuService {
     List<String> nomMenuparTypeMenuOrdonneParTprixTotal(TypeMenu typeMenu);
 
     List<Menu> listeMenuSelonTypeMenuEtprixComposantsSuperieurAUnMontant(TypeMenu typeMenu, Float prixTotal);
+
+    void menuPlusCommande();
 }

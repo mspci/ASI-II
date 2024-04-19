@@ -46,4 +46,7 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
 //    List<Menu> retrieveMenuByTypeMenuAndPrixTotalGreaterThan(@Param("typeMenu") TypeMenu typeMenu, @Param("prixTotal") Float prixTotal);
 
     Optional<Menu> findByLibelleMenu(String libelleMenu);
+
+    @Query("SELECT m FROM Menu m WHERE SIZE(m.commandes) = (SELECT MAX(SIZE(m2.commandes)) FROM Menu m2)")
+    Menu findMenuWithMaxCommandes();
 }

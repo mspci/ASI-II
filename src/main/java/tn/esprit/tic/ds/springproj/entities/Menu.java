@@ -1,5 +1,6 @@
 package tn.esprit.tic.ds.springproj.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -25,8 +26,10 @@ public class Menu {
     TypeMenu typeMenu;
     @ManyToMany(fetch = FetchType.LAZY)
     List<ChefCuisinier> chefCuisinier;
-    @OneToMany(mappedBy = "menu", fetch = FetchType.LAZY)
+    @JsonIgnore
+    @OneToMany(mappedBy = "menu", fetch = FetchType.EAGER)
     List<Commande> commandes;
+    @JsonIgnore
     @OneToMany(mappedBy = "menu", fetch = FetchType.LAZY)
     List<Composant> composants;
 }

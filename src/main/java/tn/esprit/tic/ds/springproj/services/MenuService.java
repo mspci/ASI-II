@@ -1,12 +1,15 @@
 package tn.esprit.tic.ds.springproj.services;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import tn.esprit.tic.ds.springproj.entities.*;
 import tn.esprit.tic.ds.springproj.repository.ChefCuisinierRepository;
 import tn.esprit.tic.ds.springproj.repository.MenuRepository;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -103,5 +106,20 @@ public class MenuService implements IMenuService {
     @Override
     public List<Menu> listeMenuSelonTypeMenuEtprixComposantsSuperieurAUnMontant(TypeMenu typeMenu, Float prixTotal) {
         return menuRepository.findAllByTypeMenuAndPrixTotalGreaterThan(typeMenu, prixTotal);
+    }
+
+    @Override
+    @Scheduled(fixedDelay = 10000)
+    @Transactional
+    public void menuPlusCommande() {
+        Menu maxMenu = menuRepository.findAll().stream()
+                .max(Comparator.comparing(menu -> menu.getCommandes().size()))
+                .orElse(null);
+
+        if (maxMenu != null) {
+            log.info("Le menu le plus commandé dans votre restaurant est {} commandé {}",
+                    maxMenu.getIdMenu(),
+                    maxMenu.getCommandes().size());
+        }
     }
 }

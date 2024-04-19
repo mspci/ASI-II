@@ -113,4 +113,18 @@ public class CommandeService implements ICommandeService {
                                 commande.getNote())
                 );
     }
+
+//    @Override
+//    @Scheduled(fixedDelay = 10000)
+//    public void findCurrentYearCommandesOrderByNote() {
+//        // Retrieve the menu with the maximum number of commandes directly from the repository
+//        Menu maxMenu = menuRepository.findMenuWithMaxCommandes();
+//
+//        if (maxMenu != null) {
+//            log.info("Le menu le plus commandé dans votre restaurant est {} commandé {} fois",
+//                    maxMenu.getIdMenu(),
+//                    maxMenu.getCommandes().size());
+//        }
+//    }
+
 }
