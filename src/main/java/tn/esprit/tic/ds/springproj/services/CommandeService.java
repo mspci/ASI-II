@@ -1,6 +1,8 @@
 package tn.esprit.tic.ds.springproj.services;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import tn.esprit.tic.ds.springproj.entities.Client;
 import tn.esprit.tic.ds.springproj.entities.Commande;
@@ -10,9 +12,15 @@ import tn.esprit.tic.ds.springproj.repository.CommandeRepository;
 import tn.esprit.tic.ds.springproj.repository.MenuRepository;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 @AllArgsConstructor
 public class CommandeService implements ICommandeService {
     private final CommandeRepository commandeRepository;
@@ -90,5 +98,19 @@ public class CommandeService implements ICommandeService {
         commande.setTotalCommande(totalCommande);
 
         commandeRepository.save(commande);
+    }
+
+    @Override
+    @Scheduled(fixedDelay = 10000)
+    public void findCurrentYearCommandesOrderByNote() {
+        commandeRepository.findAll().stream()
+                .filter(commande -> commande.getDateCommande().getYear() == LocalDate.now().getYear())
+                .sorted(Comparator.comparing(Commande::getNote).reversed())
+                .forEach((commande) ->
+                        log.info("La commande faite le {} d'un montant global de {} a une note de {}",
+                                commande.getDateCommande(),
+                                commande.getTotalCommande(),
+                                commande.getNote())
+                );
     }
 }
