@@ -1,6 +1,8 @@
 package tn.esprit.tic.ds.springproj.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import tn.esprit.tic.ds.springproj.entities.Restaurant;
 
@@ -12,4 +14,8 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
     List<RestaurantRepository> findAllByChaineRestaurationDateCreationLessThanAndNbPlacesMaxGreaterThan(LocalDate localDate, int nbPlacesMax);
 
     Restaurant findByNom(String nom);
+
+    @Query(value = "SELECT * FROM Restaurant WHERE nom = :nom", nativeQuery = true)
+    List<Restaurant> findRestaurantByNom(@Param("nom") String nom);
+//    List<Restaurant> findRestaurantByNom(String nom);
 }

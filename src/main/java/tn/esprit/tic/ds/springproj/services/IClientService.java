@@ -3,6 +3,7 @@ package tn.esprit.tic.ds.springproj.services;
 import org.springframework.stereotype.Service;
 import tn.esprit.tic.ds.springproj.entities.Client;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -18,4 +19,6 @@ public interface IClientService {
     Client updateClient(Client e);
 
     void removeClient(Long idClient);
+
+    Float montantDepenseParClientEntreDeuxDates(String identifiant, LocalDate date1, LocalDate date2);
 }

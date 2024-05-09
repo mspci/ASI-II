@@ -16,10 +16,6 @@ import java.util.List;
 @Table(name = "Menu")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Menu {
-
-    // add a test attribute
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idMenu")
@@ -28,6 +24,7 @@ public class Menu {
     Float prixTotal;
     @Enumerated(EnumType.STRING)
     TypeMenu typeMenu;
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     List<ChefCuisinier> chefCuisinier;
     @JsonIgnore

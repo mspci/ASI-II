@@ -1,10 +1,12 @@
 package tn.esprit.tic.ds.springproj.controllers;
 
 import lombok.AllArgsConstructor;
+import org.springframework.cglib.core.Local;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.tic.ds.springproj.entities.Client;
 import tn.esprit.tic.ds.springproj.services.IClientService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -50,5 +52,13 @@ public class ClientController {
     @DeleteMapping("/remove-client/{client-id}")
     public void removeClient(@PathVariable("client-id") Long clientId) {
         clientService.removeClient(clientId);
+    }
+
+    @GetMapping("/montant-depense-par-client-entre-deux-dates/{identifiant}/{date1}/{date2}")
+    public Float montantDepenseParClientEntreDeuxDates(
+            @PathVariable("identifiant") String identifiant,
+            @PathVariable("date1") LocalDate date1,
+            @PathVariable("date2") LocalDate date2) {
+        return clientService.montantDepenseParClientEntreDeuxDates(identifiant, date1, date2);
     }
 }

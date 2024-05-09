@@ -16,4 +16,6 @@ public interface CommandeRepository extends JpaRepository<Commande, Long> {
     List<Commande> findByClientIdClientAndDateCommandeBetweenOrderByNoteAsc(Long idClient, LocalDate dateFrom, LocalDate dateTo);
 
     List<Commande> findByClientIdentifiant(String identifiant);
+
+    List<Commande> findByClient_IdentifiantAndDateCommandeBetween(String identifiant, LocalDate dateCommandeStart, LocalDate dateCommandeEnd);
 }
